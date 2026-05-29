@@ -33,6 +33,10 @@ DEFAULT_SUB_URL = ""
 
 def get_servers_file_path():
     """Detects and returns the best path to read/write servers.json."""
+    user_path = os.path.join(USER_DIR, "servers.json")
+    if os.path.exists(user_path):
+        return user_path
+
     shared_path = os.path.join(SHARED_DIR, "servers.json")
     if os.path.exists(shared_path):
         return shared_path
@@ -41,7 +45,7 @@ def get_servers_file_path():
     if os.path.exists(local_shared):
         return local_shared
         
-    return os.path.join(USER_DIR, "servers.json")
+    return user_path
 
 def get_servers_write_path():
     """Detects where to write servers.json during an update."""
